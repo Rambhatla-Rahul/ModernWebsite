@@ -4,14 +4,15 @@ import { Html, OrbitControls, PerspectiveCamera, View } from '@react-three/drei'
 import Lights from './Lights';
 import IPhone from './IPhone';
 import * as THREE from 'three';
+import Loader from './Loader';
 
 const ModelView = ({index,groupRef,gsapType,controlRef,setRotationState,size,item}) => {
   return (
     <View
       index = {index}
       id={gsapType}
-      className = {` w-full h-full
-        ${index === 2} ? 'right-[-100%] : ''`}
+      className = {`absolute w-full h-full
+        ${index === 2 ? 'right-[-100%]' : '' }`}
       
     >
     <ambientLight intensity={0.3}/>
@@ -30,7 +31,7 @@ const ModelView = ({index,groupRef,gsapType,controlRef,setRotationState,size,ite
       onEnd={() =>setRotationState(controlRef.current.getAzimuthalAngle())}
     />
     <group ref={groupRef} name={`${index === 1} ? 'small': 'large'`} position={[0,0,0]}>
-        <Suspense fallback = {<Html><div>Loading</div></Html>}>
+        <Suspense fallback = {<Loader />}>
         <IPhone 
             scale={index === 1 ? [15, 15, 15] : [17, 17, 17]}
             item={item}
